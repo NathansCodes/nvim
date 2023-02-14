@@ -1,0 +1,8 @@
+
+# compiled packer file directory
+plugin/*
+plugin
+
+# undo files directory
+undodir/*
+undodir
