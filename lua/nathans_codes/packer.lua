@@ -26,6 +26,7 @@ return require('packer').startup(function(use)
   use('theprimeagen/harpoon')
   use('mbbill/undotree')
   use('theprimeagen/vim-be-good')
+  use('mg979/vim-visual-multi')
 
   use {
 	  'VonHeikemen/lsp-zero.nvim',
