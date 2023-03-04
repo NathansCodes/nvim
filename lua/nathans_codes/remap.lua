@@ -9,6 +9,33 @@ vim.keymap.set("n", "<C-u>", "<C-d>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
+vim.keymap.set("i", "<C-c>", "<Esc>")
+vim.keymap.set("v", "<C-c>", "<Esc>")
+
 vim.keymap.set("x", "<leader>p", "\"_dP")
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+
+vim.keymap.set("n", "<A-h>", "<C-W>h")
+vim.keymap.set("n", "<A-j>", "<C-W>j")
+vim.keymap.set("n", "<A-k>", "<C-W>k")
+vim.keymap.set("n", "<A-l>", "<C-W>l")
+
+vim.keymap.set("i", "<A-h>", "<C-W>h")
+vim.keymap.set("i", "<A-j>", "<C-W>j")
+vim.keymap.set("i", "<A-k>", "<C-W>k")
+vim.keymap.set("i", "<A-l>", "<C-W>l")
+
+vim.keymap.set("v", "<A-h>", "<C-W>h")
+vim.keymap.set("v", "<A-j>", "<C-W>j")
+vim.keymap.set("v", "<A-k>", "<C-W>k")
+vim.keymap.set("v", "<A-l>", "<C-W>l")
+
+vim.keymap.set("t", "<A-h>", "<C-\\><C-N><C-W>h")
+vim.keymap.set("t", "<A-j>", "<C-\\><C-N><C-W>j")
+vim.keymap.set("t", "<A-k>", "<C-\\><C-N><C-W>k")
+vim.keymap.set("t", "<A-l>", "<C-\\><C-N><C-W>l")
+
+vim.keymap.set("t", "<Esc>", "<C-\\><C-N>")
+vim.keymap.set("t", "<C-c>", "<C-\\><C-N>")
+
