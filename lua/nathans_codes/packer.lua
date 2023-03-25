@@ -53,7 +53,17 @@ return require('packer').startup(function(use)
 
   use('nvim-lua/plenary.nvim')
   use('mfussenegger/nvim-dap')
-  use('simrat39/rust-tools.nvim')
+  -- use{'puremourning/vimspector', run = 'python3 install_gadget.py --all'}
+  -- use{'neoclide/coc.nvim', branch = 'master', run = 'yarn install --frozen-lockfile'}
+  
+  use {
+      'saecki/crates.nvim',
+      tag = 'v0.3.0',
+      requires = { 'nvim-lua/plenary.nvim' },
+      config = function()
+          require('crates').setup()
+      end,
+  }
 
   require 'nvim-treesitter.install'.compilers = { "clang" }
 
