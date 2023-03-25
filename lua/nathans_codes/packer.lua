@@ -51,6 +51,9 @@ return require('packer').startup(function(use)
 	  }
   }
 
+  use('nvim-lua/plenary.nvim')
+  use('mfussenegger/nvim-dap')
+  use('simrat39/rust-tools.nvim')
 
   require 'nvim-treesitter.install'.compilers = { "clang" }
 
