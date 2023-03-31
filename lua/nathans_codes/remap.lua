@@ -49,3 +49,14 @@ vim.keymap.set(
     ":call vm#commands#add_cursor_up(0, v:count1)<cr>",
     { noremap = true, silent = true } 
 ) 
+
+-- debugging
+local dap = require('dap')
+
+vim.keymap.set("n", "<leader>c", function() dap.continue() end)
+vim.keymap.set("n", "<leader>n", function() dap.step_over() end)
+vim.keymap.set("n", "<leader>i", function() dap.step_into() end)
+vim.keymap.set("n", "<leader>o", function() dap.step_out() end)
+vim.keymap.set("n", "<leader>b", function() dap.toggle_breakpoint() end)
+vim.keymap.set("n", "<leader>B", function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end)
+vim.keymap.set("n", "<leader>s", function() dap.close() end)

@@ -1,9 +1,43 @@
 local lsp = require('lsp-zero')
+local lspconfig = require("lspconfig")
+
+lspconfig.rust_analyzer.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    cmd = {
+        "rustup", "run", "stable", "rust-analyzer",
+    },
+    diagnostics = {
+        enabled = true,
+    },
+}
 
 lsp.preset('recommended')
 
+lsp.ensure_installed({
+    'clangd',
+    'rust_analyzer',
+})
+
+local cmp = require("cmp")
+local cmp_select = {behaviour = cmp.SelectBehavior.Select}
+local cmp_mappings = lsp.defaults.cmp_mappings({
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-space>'] = cmp.mapping.complete(),
+})
+
+lsp.setup_nvim_cmp({
+    mapping = cmp_mappings,
+})
+
+lsp.set_preferences({
+    sign_icons = { },
+})
+
 lsp.on_attach(function(client, bufnr)
-	local opts = {buffer = bufnr, remap = false}
+	local opts = {buffer = bufnr, remap = true}
 
 	vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
 	vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
@@ -15,6 +49,17 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
 	vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
 	vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+
+    vim.lsp.codelens.refresh()
 end)
 
 lsp.setup()
+
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = false,
+  update_in_insert = true,
+  underline = true,
+  severity_sort = false,
+  float = true,
+})
