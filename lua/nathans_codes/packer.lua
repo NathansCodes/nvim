@@ -7,12 +7,14 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
+  -- telescope
   use {
 	  'nvim-telescope/telescope.nvim', tag = '0.1.x',
 
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
+  -- colors
   use({
 	  'rose-pine/neovim',
 	  as = 'rose-pine',
@@ -25,11 +27,19 @@ return require('packer').startup(function(use)
   use('nvim-treesitter/playground', {run = ':TSUpdate'})
   use('nvim-treesitter/nvim-treesitter-context')
 
+  -- for easy switching between files
   use('theprimeagen/harpoon')
+
+  -- undotree
   use('mbbill/undotree')
+
+  -- for practice
   use('theprimeagen/vim-be-good')
+
+  -- multicursors
   use('mg979/vim-visual-multi')
 
+  -- lsp
   use {
 	  'VonHeikemen/lsp-zero.nvim',
 	  branch = 'v1.x',
@@ -53,6 +63,7 @@ return require('packer').startup(function(use)
 	  }
   }
 
+  -- debugging
   use('nvim-lua/plenary.nvim')
   use('mfussenegger/nvim-dap')
   use('rcarriga/nvim-dap-ui')
@@ -69,7 +80,8 @@ return require('packer').startup(function(use)
       end,
   }
 
-  require 'nvim-treesitter.install'.compilers = { "clang" }
+  -- git integration
+  use('tpope/vim-fugitive')
 
 end)
 

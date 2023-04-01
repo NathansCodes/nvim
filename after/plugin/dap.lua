@@ -28,11 +28,11 @@ dap.configurations.rust = { {
     name = "Rust debug",
     type = "codelldb",
     request = "launch",
+    showDisassembly = "never",
     program = function()
         return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
     end,
     cwd = '${workspaceFolder}',
     stopOnEntry = true,
-    showDissasembly = "never",
   },
 }
