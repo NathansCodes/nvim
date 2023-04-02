@@ -39,14 +39,15 @@ vim.keymap.set('t', '<A-l>', '<C-\\><C-N><C-W>l')
 -- terminal stuff
 vim.keymap.set("t", "<Esc>", "<C-\\><C-N>")
 
+-- multicursors
 vim.keymap.set(
-    {'n', 'v', 'i'}, "<C-j>", 
+    {'n', 'v', 'i'}, "N", 
     ":call vm#commands#add_cursor_down(0, v:count1)<cr>",
     { noremap = true, silent = true }
 )   
   
 vim.keymap.set(
-    {'n', 'v', 'i'}, "<C-k>", 
+    {'n', 'v', 'i'}, "U", 
     ":call vm#commands#add_cursor_up(0, v:count1)<cr>",
     { noremap = true, silent = true } 
 ) 
