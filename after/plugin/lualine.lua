@@ -27,10 +27,10 @@ require('lualine').setup {
     sections = {
         lualine_a = {'mode'},
         lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {},
-        lualine_x = {'encoding', 'filename'},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
+        lualine_c = {'filetype', 'filename', 'location'},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {'buffers'}
     },
     tabline = {},
     winbar = {},
