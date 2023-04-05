@@ -29,8 +29,8 @@ require('lualine').setup {
         lualine_b = {'branch', 'diff', 'diagnostics'},
         lualine_c = {'filetype', 'filename', 'location'},
         lualine_x = {},
-        lualine_y = {},
-        lualine_z = {'buffers'}
+        lualine_y = {'buffers'},
+        lualine_z = {}
     },
     tabline = {},
     winbar = {},
