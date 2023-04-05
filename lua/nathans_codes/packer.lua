@@ -36,9 +36,6 @@ return require('packer').startup(function(use)
     -- for practice
     use('theprimeagen/vim-be-good')
 
-    -- multicursors
-    use('mg979/vim-visual-multi')
-
     -- lsp
     use {
         'VonHeikemen/lsp-zero.nvim',
