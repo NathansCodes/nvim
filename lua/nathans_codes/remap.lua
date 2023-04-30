@@ -19,10 +19,10 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 
 -- remaps for splits
-vim.keymap.set({ 'n', 't' }, '<A-a>', '<C-W>h')
-vim.keymap.set({ 'n', 't' }, '<A-s>', '<C-W>j')
-vim.keymap.set({ 'n', 't' }, '<A-w>', '<C-W>k')
-vim.keymap.set({ 'n', 't' }, '<A-d>', '<C-W>l')
+vim.keymap.set({ 'n', 't' }, '<A-h>', '<C-W>h')
+vim.keymap.set({ 'n', 't' }, '<A-j>', '<C-W>j')
+vim.keymap.set({ 'n', 't' }, '<A-k>', '<C-W>k')
+vim.keymap.set({ 'n', 't' }, '<A-l>', '<C-W>l')
 vim.keymap.set({ 'n', 't' }, '<A-o>', '<C-W>o')
 vim.keymap.set({ 'n', 't' }, '<C-->', '<C-W>-')
 vim.keymap.set({ 'n', 't' }, '<C-_>', '<C-W>_')
@@ -30,10 +30,10 @@ vim.keymap.set({ 'n', 't' }, '<C-+>', '<C-W>+')
 vim.keymap.set({ 'n', 't' }, '<C-=>', '<C-W>=')
 vim.keymap.set({ 'n', 't' }, '<C-|>', '<C-W>|')
 
-vim.keymap.set('t', '<A-h>', '<C-\\><C-N><C-W>h')
-vim.keymap.set('t', '<A-j>', '<C-\\><C-N><C-W>j')
-vim.keymap.set('t', '<A-k>', '<C-\\><C-N><C-W>k')
-vim.keymap.set('t', '<A-l>', '<C-\\><C-N><C-W>l')
+vim.keymap.set('t', '<A-a>', '<C-\\><C-N><C-W>h')
+vim.keymap.set('t', '<A-s>', '<C-\\><C-N><C-W>j')
+vim.keymap.set('t', '<A-w>', '<C-\\><C-N><C-W>k')
+vim.keymap.set('t', '<A-d>', '<C-\\><C-N><C-W>l')
 
 
 -- terminal stuff
