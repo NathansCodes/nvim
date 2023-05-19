@@ -1,9 +1,9 @@
 
-require 'nvim-treesitter.install'.compilers = { "clang" }
+require 'nvim-treesitter.install'.compilers = { "gcc" }
 
 require'nvim-treesitter.configs'.setup {
 
-  ensure_installed = { "rust", "c", "cpp", "c_sharp", "lua", "vim", "help" },
+  ensure_installed = { "rust", "c", "cpp", "c_sharp", "lua", "vim" },
 
   sync_install = false,
 

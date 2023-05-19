@@ -1,9 +1,14 @@
 local dap, dapui = require('dap'), require("dapui")
 
-
 dapui.setup()
 
-vim.keymap.set("n", "<leader>db", function() dapui.toggle() end)
+vim.keymap.set("n", "<leader>db", function() dap.toggle_breakpoint() end)
+vim.keymap.set("n", "<leader>dbc", function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end)
+vim.keymap.set("n", "<leader>dc", function() dap.continue() end)
+vim.keymap.set("n", "<leader>ds", function() dap.step_over() end)
+vim.keymap.set("n", "<leader>di", function() dap.step_into() end)
+vim.keymap.set("n", "<leader>do", function() dap.step_out() end)
+vim.keymap.set("n", "<leader>dq", function() dap.close() end)
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
@@ -15,24 +20,3 @@ dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
 
-dap.adapters.codelldb = {
-    type = 'server',
-    port = "${port}",
-    executable = {
-        command = 'C:/Users/Nathan/AppData/Local/nvim-data/site/pack/packer/start/vimspector/gadgets/windows/download/CodeLLDB/v1.9.0/root/extension/adapter/codelldb.exe',
-        args = {"--port", "${port}"},
-    }
-}
-
-dap.configurations.rust = { {
-    name = "Rust debug",
-    type = "codelldb",
-    request = "launch",
-    showDisassembly = "never",
-    program = function()
-        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
-    end,
-    cwd = '${workspaceFolder}',
-    stopOnEntry = true,
-  },
-}
