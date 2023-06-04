@@ -1,90 +1,64 @@
-local keymap = vim.keymap.set
+local lsp = require('lsp-zero')
+local lspconfig = require("lspconfig")
 
--- LSP finder - Find the symbol's definition
--- If there is no definition, it will instead be hidden
--- When you use an action in finder like "open vsplit",
--- you can use <C-t> to jump back
-keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
+lspconfig.rust_analyzer.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    cmd = {
+        "rustup", "run", "stable", "rust-analyzer",
+    },
+    diagnostics = {
+        enabled = true,
+    },
+}
 
--- Code action
-keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+lsp.preset('recommended')
 
--- Rename all occurrences of the hovered word for the entire file
-keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
+lsp.ensure_installed({
+    'clangd',
+    'rust_analyzer',
+    'sumneko_lua',
+})
 
--- Rename all occurrences of the hovered word for the selected files
-keymap("n", "gr", "<cmd>Lspsaga rename ++project<CR>")
+local cmp = require("cmp")
+local cmp_select = {behaviour = cmp.SelectBehavior.Select}
+local cmp_mappings = lsp.defaults.cmp_mappings({
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-g>'] = cmp.mapping.complete(),
+})
 
--- Peek definition
--- You can edit the file containing the definition in the floating window
--- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
--- It also supports tagstack
--- Use <C-t> to jump back
-keymap("n", "gp", "<cmd>Lspsaga peek_definition<CR>")
+lsp.setup_nvim_cmp({
+    mapping = cmp_mappings,
+})
 
--- Go to definition
-keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
+lsp.set_preferences({
+    sign_icons = { },
+})
 
--- Peek type definition
--- You can edit the file containing the type definition in the floating window
--- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
--- It also supports tagstack
--- Use <C-t> to jump back
-keymap("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>")
+lsp.on_attach(function(client, bufnr)
+	local opts = {buffer = bufnr, remap = true}
 
--- Go to type definition
-keymap("n", "gt", "<cmd>Lspsaga goto_type_definition<CR>")
+	vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+	vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+	vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+	vim.keymap.set("n", "<leader>vd", function() vim.lsp.buf.open_float() end, opts)
+	vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+	vim.keymap.set("n", "]d", function() vim.diagnostc.goto_prev() end, opts)
+	vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+	vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+	vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+	vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
-
--- Show line diagnostics
--- You can pass argument ++unfocus to
--- unfocus the show_line_diagnostics floating window
-keymap("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>")
-
--- Show buffer diagnostics
-keymap("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>")
-
--- Show workspace diagnostics
-keymap("n", "<leader>sw", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
-
--- Show cursor diagnostics
-keymap("n", "<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
-
--- Diagnostic jump
--- You can use <C-o> to jump back to your previous location
-keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
-keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
-
--- Diagnostic jump with filters such as only jumping to an error
-keymap("n", "[E", function()
-  require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-end)
-keymap("n", "]E", function()
-  require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+    vim.lsp.codelens.refresh()
 end)
 
--- Toggle outline
-keymap("n","<leader>o", "<cmd>Lspsaga outline<CR>")
-
--- Hover Doc
--- If there is no hover doc,
--- there will be a notification stating that
--- there is no information available.
--- To disable it just use ":Lspsaga hover_doc ++quiet"
--- Pressing the key twice will enter the hover window
-keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
-
--- If you want to keep the hover window in the top right hand corner,
--- you can pass the ++keep argument
--- Note that if you use hover with ++keep, pressing this key again will
--- close the hover window. If you want to jump to the hover window
--- you should use the wincmd command "<C-w>w"
-keymap("n", "K", "<cmd>Lspsaga hover_doc ++keep<CR>")
-
--- Call hierarchy
-keymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
-keymap("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
-
--- Floating terminal
-keymap({"n", "t"}, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
-
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = false,
+  update_in_insert = true,
+  underline = true,
+  severity_sort = false,
+  float = true,
+})

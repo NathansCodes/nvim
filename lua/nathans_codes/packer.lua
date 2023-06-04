@@ -37,20 +37,28 @@ return require('packer').startup(function(use)
     use('theprimeagen/vim-be-good')
 
     -- lsp
-    use({
-        "glepnir/lspsaga.nvim",
-        opt = true,
-        branch = "main",
-        event = "LspAttach",
-        config = function()
-            require("lspsaga").setup({})
-        end,
+    use {
+        'VonHeikemen/lsp-zero.nvim',
+        branch = 'v2.x',
         requires = {
-            {"nvim-tree/nvim-web-devicons"},
-            --Please make sure you install markdown and markdown_inline parser
-            {"nvim-treesitter/nvim-treesitter"}
+            -- LSP Support
+            {'neovim/nvim-lspconfig'},             -- Required
+            {'williamboman/mason.nvim'},           -- Optional
+            {'williamboman/mason-lspconfig.nvim'}, -- Optional
+
+            -- Autocompletion
+            {'hrsh7th/nvim-cmp'},         -- Required
+            {'hrsh7th/cmp-nvim-lsp'},     -- Required
+            {'hrsh7th/cmp-buffer'},       -- Optional
+            {'hrsh7th/cmp-path'},         -- Optional
+            {'saadparwaiz1/cmp_luasnip'}, -- Optional
+            {'hrsh7th/cmp-nvim-lua'},     -- Optional
+
+            -- Snippets
+            {'L3MON4D3/LuaSnip'},             -- Required
+            {'rafamadriz/friendly-snippets'}, -- Optional
         }
-    })
+    }
     use('neovim/nvim-lspconfig')
 
     -- manage lang servers, debug adapters, etc.
