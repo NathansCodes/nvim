@@ -1,3 +1,7 @@
+require("rose-pine").setup({
+    dark_variant='moon'
+})
+
 function Colors(color)
 	color = color or "rose-pine"
 	vim.cmd.colorscheme(color)
