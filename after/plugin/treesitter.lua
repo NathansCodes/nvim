@@ -1,4 +1,4 @@
-grequire 'nvim-treesitter.install'.compilers = { "gcc" }
+require 'nvim-treesitter.install'.compilers = { "gcc" }
 
 require 'nvim-treesitter.configs'.setup {
 
