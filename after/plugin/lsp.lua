@@ -1,30 +1,30 @@
 local lsp = require('lsp-zero')
 local lspconfig = require("lspconfig")
 
-lspconfig.rust_analyzer.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-    cmd = {
-        "rustup", "run", "stable", "rust-analyzer",
-    },
-    diagnostics = {
-        enabled = true,
-    },
-}
-
 lsp.preset('recommended')
 
 lsp.ensure_installed({
     'clangd',
     'rust_analyzer',
-    'sumneko_lua',
+    'lua_ls',
+})
+
+-- Fix Undefined global 'vim'
+lsp.configure('lua_ls', {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
+        }
+    }
 })
 
 local cmp = require("cmp")
 local cmp_select = {behaviour = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
-    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
     ['<C-g>'] = cmp.mapping.complete(),
 })
@@ -54,6 +54,8 @@ lsp.on_attach(function(client, bufnr)
     vim.lsp.codelens.refresh()
 end)
 
+lsp.setup()
+
 vim.diagnostic.config({
   virtual_text = true,
   signs = false,
@@ -62,3 +64,15 @@ vim.diagnostic.config({
   severity_sort = false,
   float = true,
 })
+
+lspconfig.rust_analyzer.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    cmd = {
+        "rustup", "run", "stable", "rust-analyzer",
+    },
+    diagnostics = {
+        enabled = true,
+    },
+}
+
