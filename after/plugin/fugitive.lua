@@ -1,6 +1,6 @@
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
-local nathans_codes_Fugitive = vim.api.nvim_create_augroup("ThePrimeagen_Fugitive", {})
+local nathans_codes_Fugitive = vim.api.nvim_create_augroup("nathans_codes_Fugitive", {})
 
 local autocmd = vim.api.nvim_create_autocmd
 autocmd("BufWinEnter", {
