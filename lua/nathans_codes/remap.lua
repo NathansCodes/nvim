@@ -1,4 +1,3 @@
-
 vim.g.mapleader = " "
 
 -- general remaps
@@ -24,3 +23,5 @@ vim.keymap.set({ 'n', 't' }, '<C-+>', '<C-W>+')
 vim.keymap.set({ 'n', 't' }, '<C-=>', '<C-W>=')
 vim.keymap.set({ 'n', 't' }, '<C-|>', '<C-W>|')
 
+vim.keymap.set("c", "<C-k>", "<C-p>")
+vim.keymap.set("c", "<C-j>", "<C-n>")
