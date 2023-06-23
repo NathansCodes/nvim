@@ -112,11 +112,19 @@ return require('packer').startup(function(use)
         'christoomey/vim-tmux-navigator',
         lazy = false,
     })
-    
+
     -- git signs
     use {
         'lewis6991/gitsigns.nvim',
         tag = 'release', -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
+    }
+
+    use {
+        "startup-nvim/startup.nvim",
+        requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
+        config = function()
+            require"startup".setup()
+        end
     }
 end)
 
