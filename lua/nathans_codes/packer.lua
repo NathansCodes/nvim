@@ -10,19 +10,15 @@ return require('packer').startup(function(use)
     -- telescope
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.x',
-
-        requires = { {'nvim-lua/plenary.nvim'} }
+        requires = { {'nvim-lua/plenary.nvim'} },
     }
 
     -- colors
     use({
         'rose-pine/neovim',
         as = 'rose-pine',
-        config = function()
-            require("rose-pine").setup()
-            vim.cmd('colorscheme rose-pine')
-        end
     })
+    use("xiyaowong/nvim-transparent")
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
     use('nvim-treesitter/playground', {run = ':TSUpdate'})
     use('nvim-treesitter/nvim-treesitter-context')
