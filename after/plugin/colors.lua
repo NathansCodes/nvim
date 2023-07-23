@@ -14,6 +14,7 @@ Colors()
 
 transparent.setup {
     extra_groups = {
-        "TelescopeNormal", "TelescopeBorder", "TelescopePromptNorml"
+        "TelescopeNormal", "TelescopeBorder", "TelescopePromptNormal",
+        "GitSignsAdd", "GitSignsChange", "GitSignsDelete", "GitSignsChangedelete",
     }
 }
