@@ -133,5 +133,16 @@ return require('packer').startup(function(use)
             "MunifTanjim/nui.nvim",
         }
     }
+
+    -- easily view errors
+    use {
+        "folke/trouble.nvim",
+        requires = {
+            "nvim-tree/nvim-web-devicons",
+        },
+        opts = {
+            icons = true,
+        },
+    }
 end)
 
