@@ -124,5 +124,14 @@ return require('packer').startup(function(use)
     }
 
     use("tpope/vim-surround")
+
+    -- noice
+    use("MunifTanjim/nui.nvim")
+    use {
+        "folke/noice.nvim",
+        requires = {
+            "MunifTanjim/nui.nvim",
+        }
+    }
 end)
 
