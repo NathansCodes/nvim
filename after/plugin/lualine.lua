@@ -1,14 +1,16 @@
-local custom_rose_pine = require('lualine.themes.rose-pine')
-
-custom_rose_pine.normal.c.bg = 'none'
-custom_rose_pine.visual.c.bg = 'none'
-custom_rose_pine.insert.c.bg = 'none'
-custom_rose_pine.command.c.bg = 'none'
+local theme = require("lualine.themes.rose-pine")
+local modes = { "normal", "insert", "visual", "replace", "command", "inactive" }
+for _, mode in ipairs(modes) do
+    theme[mode].a.fg = theme[mode].b.fg
+    theme[mode].a.bg = "none"
+    theme[mode].b.bg = "none"
+    theme[mode].c.bg = "none"
+end
 
 require('lualine').setup {
     options = {
         icons_enabled = true,
-        theme = custom_rose_pine,
+        theme = theme,
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
         disabled_filetypes = {
@@ -26,8 +28,8 @@ require('lualine').setup {
     },
     sections = {
         lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filetype', 'filename', 'location'},
+        lualine_b = {'branch'},
+        lualine_c = {'filename', 'diagnostics', 'location'},
         lualine_x = {},
         lualine_y = {},
         lualine_z = {}
