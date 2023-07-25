@@ -147,6 +147,14 @@ return require('packer').startup(function(use)
         },
     }
 
+    -- comments, todos and notes
+    use {
+        "folke/todo-comments.nvim",
+        requires = {
+            "nvim-lua/plenary.nvim",
+        },
+    }
+
     -- better file tree
     use("stevearc/oil.nvim")
 end)
