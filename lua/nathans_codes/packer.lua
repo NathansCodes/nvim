@@ -144,5 +144,8 @@ return require('packer').startup(function(use)
             icons = true,
         },
     }
+
+    -- better file tree
+    use("stevearc/oil.nvim")
 end)
 
