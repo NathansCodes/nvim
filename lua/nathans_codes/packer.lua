@@ -7,11 +7,6 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -- telescope
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'} },
-    }
     -- icons
     use("nvim-tree/nvim-web-devicons")
 
@@ -85,6 +80,12 @@ return require('packer').startup(function(use)
     use('nvim-telescope/telescope-dap.nvim')
     use{'puremourning/vimspector', run = 'python3 install_gadget.py --all'}
 
+    -- telescope
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.x',
+        requires = { {'nvim-lua/plenary.nvim'} },
+    }
+
     -- awesome plugins for rust
     use('simrat39/rust-tools.nvim')
     use {
@@ -126,6 +127,9 @@ return require('packer').startup(function(use)
     }
 
     use("tpope/vim-surround")
+
+    -- notification beautification
+    use("rcarriga/nvim-notify")
 
     -- noice
     use("MunifTanjim/nui.nvim")
