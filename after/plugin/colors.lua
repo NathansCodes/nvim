@@ -16,5 +16,7 @@ transparent.setup {
     extra_groups = {
         "TelescopeNormal", "TelescopeBorder", "TelescopePromptNormal",
         "GitSignsAdd", "GitSignsChange", "GitSignsDelete", "GitSignsChangedelete",
+        "FloatBorder", "FloatTitle", "NormalFloat",
     }
 }
+
