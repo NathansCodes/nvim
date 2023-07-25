@@ -16,7 +16,7 @@ vim.keymap.set("x", "<leader>p", "\"_dP")
 vim.keymap.set("v", "<leader>y", "\"+y")
 vim.keymap.set("n", "<leader>y", "\"+y")
 
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", require("oil").open)
 
 -- remaps for splits
 vim.keymap.set({ 'n', 't' }, '<C-->', '<C-W>-')
