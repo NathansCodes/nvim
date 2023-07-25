@@ -11,7 +11,7 @@ require('lualine').setup {
     options = {
         icons_enabled = true,
         theme = theme,
-        component_separators = { left = '', right = ''},
+        component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
         disabled_filetypes = {
             statusline = {},
@@ -29,14 +29,37 @@ require('lualine').setup {
     sections = {
         lualine_a = {'mode'},
         lualine_b = {'branch'},
-        lualine_c = {'filename', 'diagnostics', 'location'},
+        lualine_c = {'filename', 'diagnostics'},
         lualine_x = {},
         lualine_y = {},
         lualine_z = {}
     },
     tabline = {},
-    winbar = {},
-    inactive_winbar = {},
+    winbar = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {
+            {
+                'filetype',
+                icon_only = true,
+            }, 'filename', 'diagnostics'},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {},
+    },
+    inactive_winbar = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {
+            {
+                'filetype',
+                icon_only = true,
+            }, 'filename', 'diagnostics'
+        },
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {},
+    },
     extensions = {
         'fugitive',
         'nvim-dap-ui',
