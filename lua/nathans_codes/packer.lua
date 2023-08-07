@@ -161,5 +161,17 @@ return require('packer').startup(function(use)
 
     -- better file tree
     use("stevearc/oil.nvim")
+
+    -- COLORS!!!
+    use("ap/vim-css-color")
+
+    -- rofi config highlighting
+    use {
+        "Fymyte/rasi.vim",
+        ft = "rasi",
+        requires = {
+            "ap/vim-css-color"
+        },
+    }
 end)
 
