@@ -5,9 +5,10 @@ oil.setup {
         "icon"
     },
     keymaps = {
-        ["<C-l>"] = "actions.select",
-        ["<C-h>"] = "actions.parent",
+        ["<C-y>"] = "actions.select",
+        ["<C-b>"] = "actions.parent",
         ["<C-p>"] = "actions.preview",
+        ["<C-h>"] = "none",
         ["cd"]    = "actions.cd",
         ["."]     = "actions.toggle_hidden",
         ["g?"]    = "actions.show_help",

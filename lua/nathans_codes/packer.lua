@@ -11,14 +11,18 @@ return require('packer').startup(function(use)
     use("nvim-tree/nvim-web-devicons")
 
     -- colors
-    use({
+    use {
         'rose-pine/neovim',
         as = 'rose-pine',
-    })
+    }
     use("xiyaowong/nvim-transparent")
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
     use('nvim-treesitter/playground', {run = ':TSUpdate'})
     use('nvim-treesitter/nvim-treesitter-context')
+    use {
+        'catppuccin/nvim',
+        as = 'catppuccin',
+    }
 
     -- for easy switching between files
     use('theprimeagen/harpoon')
@@ -112,6 +116,8 @@ return require('packer').startup(function(use)
         lazy = false,
     })
 
+    -- sessions for working with tmux
+    use('stevearc/resession.nvim')
     -- git signs
     use {
         'lewis6991/gitsigns.nvim',

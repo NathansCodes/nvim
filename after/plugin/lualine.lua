@@ -1,10 +1,13 @@
-local theme = require("lualine.themes.rose-pine")
+local theme = require("lualine.themes.catppuccin")
 local modes = { "normal", "insert", "visual", "replace", "command", "inactive" }
 for _, mode in ipairs(modes) do
     theme[mode].a.fg = theme[mode].b.fg
     theme[mode].a.bg = "none"
     theme[mode].b.bg = "none"
-    theme[mode].c.bg = "none"
+    -- check for nil because of catppuccin
+    if theme[mode].c ~= nil then
+        theme[mode].c.bg = "none"
+    end
 end
 
 require('lualine').setup {
