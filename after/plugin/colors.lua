@@ -1,14 +1,10 @@
 local transparent = require("transparent")
 
-require("rose-pine").setup {
-    dark_variant='moon'
-}
-
-vim.g.catppuccin_flavour = "mocha"
+require("rose-pine").setup()
 require("catppuccin").setup()
 
 function Colors(color)
-	color = color or "catppuccin"
+	color = color or 'catppuccin-macchiato'
 	vim.cmd.colorscheme(color)
 end
 

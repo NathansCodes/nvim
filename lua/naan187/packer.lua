@@ -11,18 +11,19 @@ return require('packer').startup(function(use)
     use("nvim-tree/nvim-web-devicons")
 
     -- colors
+    use("xiyaowong/nvim-transparent")
+    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
+    use('nvim-treesitter/playground', { run = ':TSUpdate' })
+    use('nvim-treesitter/nvim-treesitter-context')
     use {
         'rose-pine/neovim',
         as = 'rose-pine',
     }
-    use("xiyaowong/nvim-transparent")
-    use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-    use('nvim-treesitter/playground', {run = ':TSUpdate'})
-    use('nvim-treesitter/nvim-treesitter-context')
     use {
         'catppuccin/nvim',
         as = 'catppuccin',
     }
+    use('Biscuit-Colorscheme/nvim')
 
     -- for easy switching between files
     use('theprimeagen/harpoon')
@@ -30,30 +31,27 @@ return require('packer').startup(function(use)
     -- undotree
     use('mbbill/undotree')
 
-    -- for practice
-    use('theprimeagen/vim-be-good')
-
     -- lsp
     use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v2.x',
         requires = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'},             -- Required
-            {'williamboman/mason.nvim'},           -- Optional
-            {'williamboman/mason-lspconfig.nvim'}, -- Optional
+            { 'neovim/nvim-lspconfig' },             -- Required
+            { 'williamboman/mason.nvim' },           -- Optional
+            { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},         -- Required
-            {'hrsh7th/cmp-nvim-lsp'},     -- Required
-            {'hrsh7th/cmp-buffer'},       -- Optional
-            {'hrsh7th/cmp-path'},         -- Optional
-            {'saadparwaiz1/cmp_luasnip'}, -- Optional
-            {'hrsh7th/cmp-nvim-lua'},     -- Optional
+            { 'hrsh7th/nvim-cmp' },         -- Required
+            { 'hrsh7th/cmp-nvim-lsp' },     -- Required
+            { 'hrsh7th/cmp-buffer' },       -- Optional
+            { 'hrsh7th/cmp-path' },         -- Optional
+            { 'saadparwaiz1/cmp_luasnip' }, -- Optional
+            { 'hrsh7th/cmp-nvim-lua' },     -- Optional
 
             -- Snippets
-            {'L3MON4D3/LuaSnip'},             -- Required
-            {'rafamadriz/friendly-snippets'}, -- Optional
+            { 'L3MON4D3/LuaSnip' },             -- Required
+            { 'rafamadriz/friendly-snippets' }, -- Optional
         }
     }
     use('neovim/nvim-lspconfig')
@@ -87,7 +85,7 @@ return require('packer').startup(function(use)
     -- telescope
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'} },
+        requires = { { 'nvim-lua/plenary.nvim' } },
     }
 
     -- awesome plugins for rust
@@ -126,7 +124,7 @@ return require('packer').startup(function(use)
 
     use {
         "startup-nvim/startup.nvim",
-        requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
+        requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
         config = function()
             require"startup".setup()
         end
@@ -178,6 +176,12 @@ return require('packer').startup(function(use)
         requires = {
             "ap/vim-css-color"
         },
+    }
+
+    -- FIRENVIM!!!!
+    use {
+        'glacambre/firenvim',
+        run = function() vim.fn['firenvim#install'](0) end
     }
 end)
 
