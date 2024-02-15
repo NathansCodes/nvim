@@ -28,11 +28,15 @@ vim.keymap.set("c", "<C-k>", "<C-p>")
 vim.keymap.set("c", "<C-j>", "<C-n>")
 
 -- plugin keymaps
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git                )
-vim.keymap.set("n", "<leader>u",  vim.cmd.UndotreeToggle     )
-vim.keymap.set("n", "<leader>h",  vim.cmd.BufferLineCyclePrev)
-vim.keymap.set("n", "<leader>l",  vim.cmd.BufferLineCycleNext)
-vim.keymap.set("n", "<leader>j",  vim.cmd.BufferLineMovePrev )
-vim.keymap.set("n", "<leader>k",  vim.cmd.BufferLineMoveNext )
-vim.keymap.set("n", "<leader>t",  vim.cmd.BufferLinePick     )
+vim.keymap.set("n", "<leader>gs", vim.cmd.Git                   )
 
+vim.keymap.set("n", "<leader>u",  vim.cmd.UndotreeToggle        )
+
+vim.keymap.set("n", "<leader>h",  vim.cmd.BufferLineCyclePrev   )
+vim.keymap.set("n", "<leader>l",  vim.cmd.BufferLineCycleNext   )
+vim.keymap.set("n", "<leader>j",  vim.cmd.BufferLineMovePrev    )
+vim.keymap.set("n", "<leader>k",  vim.cmd.BufferLineMoveNext    )
+vim.keymap.set("n", "<leader>t",  vim.cmd.BufferLinePick        )
+
+vim.keymap.set("n", "<leader>c",  vim.cmd.CommentToggle         )
+vim.keymap.set("v", "<leader>c",  "<cmd>'<,'>CommentToggle<cr>" )
