@@ -1,7 +1,7 @@
 return {
     {
         "VonHeikemen/lsp-zero.nvim",
-        branch = "v2.x",
+        branch = "v3.x",
         dependencies = {
             -- LSP Support
             { "neovim/nvim-lspconfig" },
@@ -21,72 +21,61 @@ return {
             { "rafamadriz/friendly-snippets" },
         },
         config = function()
-            local lsp = require("lsp-zero")
+            local lsp_zero = require('lsp-zero')
 
-            lsp.preset("recommended")
-
-            lsp.ensure_installed {
-                "clangd",
-                "rust_analyzer",
-                "lua_ls",
-            }
-
-            -- Fix Undefined global "vim"
-            lsp.configure("lua_ls", {
-                settings = {
-                    Lua = {
-                        diagnostics = {
-                            globals = { "vim" }
-                        }
-                    }
-                }
-            })
-
-            local cmp = require("cmp")
-            local cmp_select = {behaviour = cmp.SelectBehavior.Select}
-            local cmp_mappings = lsp.defaults.cmp_mappings {
-                ["<C-k>"] = cmp.mapping.select_prev_item(cmp_select),
-                ["<C-j>"] = cmp.mapping.select_next_item(cmp_select),
-                ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-                ["<C-g>"] = cmp.mapping.complete(),
-            }
-
-            lsp.setup_nvim_cmp {
-                mapping = cmp_mappings,
-            }
-
-            lsp.set_preferences {
-                sign_icons = { },
-            }
-
-            lsp.on_attach(function(client, bufnr)
+            lsp_zero.on_attach(function(_, bufnr)
                 local opts = {buffer = bufnr, remap = true}
 
-                vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-                vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-                vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-                vim.keymap.set("n", "<leader>vd", function() vim.lsp.buf.open_float() end, opts)
-                vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-                vim.keymap.set("n", "]d", function() vim.diagnostc.goto_prev() end, opts)
-                vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-                vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-                vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-                vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+                lsp_zero.default_keymaps()
+
+                local vdiag = vim.diagnostic
+                local vlbuf = vim.lsp.buf
+                vim.keymap.set("n", "[d",        vdiag.goto_next,        opts)
+                vim.keymap.set("n", "]d",        vdiag.goto_prev,        opts)
+                vim.keymap.set("n", "L",         vdiag.open_float,       opts)
+                vim.keymap.set("n", "K",         vlbuf.hover,            opts)
+                vim.keymap.set("n", "<leader>w", vlbuf.workspace_symbol, opts)
+                vim.keymap.set("n", "<leader>a", vlbuf.code_action,      opts)
+                vim.keymap.set("n", "<leader>r", vlbuf.references,       opts)
+                vim.keymap.set("n", "<leader>n", vlbuf.rename,           opts)
+                vim.keymap.set("i", "<C-h>",     vlbuf.signature_help,   opts)
 
                 vim.lsp.codelens.refresh()
             end)
 
-            lsp.setup()
-
-            vim.diagnostic.config {
-                virtual_text = true,
-                signs = false,
-                update_in_insert = true,
-                underline = true,
-                severity_sort = false,
-                float = true,
+            -- disable sign icons
+            lsp_zero.set_sign_icons {
+                error = '',
+                warn = '',
+                hint = '',
+                info = ''
             }
 
+            require('mason').setup {}
+            require('mason-lspconfig').setup {
+                ensure_installed = {'lua_ls', 'rust_analyzer'},
+                handlers = {
+                    lsp_zero.default_setup,
+                    rust_analyzer = lsp_zero.noop,
+                }
+            }
+
+            local cmp = require('cmp')
+            local cmp_format = require('lsp-zero').cmp_format()
+            local cmp_select = { behaviour = cmp.SelectBehavior.Select }
+
+            cmp.setup({
+                formatting = cmp_format,
+                mapping = cmp.mapping.preset.insert({
+                    -- scroll up and down the documentation window
+                    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+                    ["<C-k>"] = cmp.mapping.select_prev_item(cmp_select),
+                    ["<C-j>"] = cmp.mapping.select_next_item(cmp_select),
+                    ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+                    ["<C-g>"] = cmp.mapping.complete(),
+                }),
+            })
         end,
     },
     -- rofi config highlighting
