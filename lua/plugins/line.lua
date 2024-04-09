@@ -4,47 +4,50 @@ local lualine = {
     dependencies = {
         { "nvim-tree/nvim-web-devicons", opt = true },
         "nvim-tree/nvim-tree.lua",
+        "akinsho/bufferline.nvim",
     },
     config = function()
         local theme = require("lualine.themes.catppuccin")
         local modes = { "normal", "insert", "visual", "replace", "command", "inactive" }
         for _, mode in ipairs(modes) do
-            theme[mode].a = vim.api.nvim_get_hl(0, { name = "NvimTreeNormal" }).guibg
-            theme[mode].b.bg = "none"
-            theme[mode].c = theme[mode].c or {}
-            theme[mode].c.bg = "none"
-        end
-
-        local function nvimtree_spacing()
-            if require("nvim-tree.api").tree.is_visible() then
-                return "                            "
-            end
-            return ""
+            theme[mode].c = "none"
         end
 
         require("lualine").setup {
             options = {
-                icons_enabled = true,
                 theme = theme,
-                component_separators = { left = "", right = ""},
-                section_separators = { left = "", right = ""},
+                icons_enabled = true,
+                component_separators = "",
+                section_separators = { left = "", right = "" },
                 always_divide_middle = true,
-                globalstatus = true,
+                globalstatus = false,
                 refresh = {
                     statusline = 1000,
                     tabline = 1000,
                     winbar = 1000,
-                }
+                },
+                disabled_filetypes = { statusline = { "NvimTree" } },
             },
             sections = {
-                lualine_a = {nvimtree_spacing},
-                lualine_b = {"mode", "branch"},
+                lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
+                lualine_b = { 'filename', 'branch' },
+                lualine_c = {
+                    '%=', --[[ add your center compoentnts here in place of this comment ]]
+                },
+                lualine_x = {},
+                lualine_y = { 'filetype', 'progress' },
+                lualine_z = {
+                    { 'location', separator = { right = '' }, left_padding = 2 },
+                },
+            },
+            inactive_sections = {
+                lualine_a = { 'filename' },
+                lualine_b = {},
                 lualine_c = {},
                 lualine_x = {},
                 lualine_y = {},
-                lualine_z = {}
+                lualine_z = { 'location' },
             },
-            tabline = {},
             inactive_winbar = {},
             extensions = {
                 "fugitive",
@@ -59,40 +62,45 @@ local bufferline = {
     "akinsho/bufferline.nvim",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
-        "nvim-tree/nvim-tree.lua",
+        -- "nvim-tree/nvim-tree.lua",
     },
-    opts = {
-        options = {
-            mode = "buffers",
-            themable = false,
-            diagnostics = "nvim_lsp",
-            diagnostics_indicator = function(count, level, _, _)
-                local icon = level:match("error") and " " or " "
-                return " " .. icon .. count
-            end,
-            separator_style = "slant",
-            hover = {
-                enabled = true,
-                delay = 200,
-                reveal = {"close"}
+    config = function()
+        require("bufferline").setup {
+            options = {
+                mode = "buffers",
+                themable = false,
+                diagnostics = "nvim_lsp",
+                diagnostics_update_in_insert = true,
+                diagnostics_indicator = function(count, level, _, _)
+                    local icon = level:match("error") and " " or " "
+                    return " " .. icon .. count
+                end,
+                separator_style = "slant",
+                hover = {
+                    enabled = true,
+                    delay = 200,
+                    reveal = {"close"}
+                },
+                offsets = {
+                    {
+                        filetype = "NvimTree",
+                        text = "File Explorer",
+                        highlight = "BufferLineFill",
+                    }
+                },
             },
-            diagnostics_update_in_insert = true,
-            custom_areas = {
-                left = function()
-                    local result = {}
-                    local nvimtree = require("nvim-tree.api")
-
-                    if nvimtree.tree.is_visible() then
-                        table.insert(result, {
-                            text = "        File Explorer         ",
-                            bg = vim.api.nvim_get_hl(0, { name = "NvimTreeNormal" }).bg
-                        })
-                    end
-                    return result
-                end
-            }
+            -- highlights = {
+            --     fill = {
+            --         bg = {
+            --             -- won't work all that well for some colorschemes,
+            --             -- but it's the best way to get rid of the tint I've found so far
+            --             highlight = "NormalSB",
+            --             attribute = "bg",
+            --         }
+            --     },
+            -- },
         }
-    },
+    end
 }
 
 return { lualine, bufferline }
