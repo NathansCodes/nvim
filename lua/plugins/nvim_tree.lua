@@ -106,6 +106,7 @@ return {
             vim.keymap.set("n", "g?", api.tree.toggle_help,           opts("Remove file or directory"))
         end
 
+        -- Auto close
         vim.api.nvim_create_autocmd("BufEnter", {
             group = vim.api.nvim_create_augroup("NvimTreeClose", {clear = true}),
             pattern = "NvimTree_*",
