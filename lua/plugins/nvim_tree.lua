@@ -51,11 +51,6 @@ return {
     config = function()
         local nvtree = require("nvim-tree")
 
-        local function set_bg_color()
-            local bufferline_bg = vim.api.nvim_get_hl(0, { name = "BufferLineFill" }).bg
-            vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = bufferline_bg })
-        end
-
         local function on_attach(bufnr)
             local preview = require("float-preview")
 
@@ -133,7 +128,6 @@ return {
         vim.api.nvim_create_autocmd("VimEnter", {
             callback = function()
                 vim.cmd.NvimTreeOpen()
-                set_bg_color()
             end
         })
     end
