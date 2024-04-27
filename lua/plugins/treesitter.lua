@@ -16,5 +16,4 @@ return {
         end
     },
     { "nvim-treesitter/playground", build = ":TSUpdate" },
-    "nvim-treesitter/nvim-treesitter-context",
 }
