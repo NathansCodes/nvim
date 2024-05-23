@@ -5,6 +5,7 @@ return {
         local builtin = require('telescope.builtin')
         local actions = require('telescope.actions')
 
+        -- TODO: auto :lua require('telescope.builtin').quickfix() when open qlist
         vim.keymap.set('n', '<leader>f', builtin.find_files, {})
         vim.keymap.set('n', '<leader>g', builtin.git_files, {})
         vim.keymap.set('n', '<leader>s', function()
